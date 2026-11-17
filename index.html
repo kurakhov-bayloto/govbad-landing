@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Байлото — 300 сом на счёт за регистрацию</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+<!--
+  Преленд 3 «Регистрируйся — получи 300 сом».
+  Пиксель Meta: вставь сюда стандартный код пикселя.
+  Преленд сам шлёт кастомное событие ClickRegistration, если fbq есть на странице.
+-->
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{
+    font-family:Rubik,system-ui,sans-serif;color:#FFF6E0;-webkit-tap-highlight-color:transparent;
+    background:#160935;
+    background-image:
+      radial-gradient(ellipse 80% 45% at 50% 0%, rgba(155,48,255,.55), transparent 70%),
+      radial-gradient(ellipse 70% 40% at 50% 100%, rgba(255,46,136,.35), transparent 70%);
+    background-attachment:fixed;
+  }
+  .page{position:relative;max-width:440px;margin:0 auto;padding:16px 20px calc(120px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:28px;z-index:1}
+  .sparks{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .sparks svg{position:absolute;animation:twinkle 2.4s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+  .top{display:flex;justify-content:space-between;align-items:center;height:44px}
+  .logo{color:#fff;font:900 20px/1 Rubik,sans-serif;letter-spacing:.02em;font-style:italic}
+  .logo span{color:#FFC93C}
+  .tools{display:flex;gap:6px}
+  .pill{height:32px;min-width:42px;padding:0 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#D9CCFF;font:700 12px/1 Rubik,sans-serif;cursor:pointer}
+  .pill.on{background:#FFC93C;color:#2A1200;border-color:#FFC93C}
+
+  .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding-top:8px}
+  .chip{font:800 12px/1 Rubik,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#FF7CBC}
+  .bigcoin{position:relative;width:168px;height:168px;perspective:600px}
+  .bigcoin .face{position:absolute;inset:0;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#FFF6B8,#FFC93C 45%,#D97E00);border:5px solid #8A4A00;
+    box-shadow:0 0 0 6px rgba(255,201,60,.18),0 0 60px rgba(255,190,40,.55),inset 0 -8px 0 rgba(0,0,0,.12);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;animation:flip 4s ease-in-out infinite}
+  .bigcoin .face::before{content:"";position:absolute;inset:14px;border-radius:50%;border:2px dashed #B36A00}
+  .bigcoin .face::after{content:"";position:absolute;left:26px;top:22px;width:46px;height:18px;border-radius:50%;background:#fff;opacity:.55;transform:rotate(-30deg)}
+  .bigcoin b{font:900 56px/1 Rubik,sans-serif;font-style:italic;color:#6B3200;text-shadow:0 2px 0 rgba(255,255,255,.4)}
+  .bigcoin small{font:900 16px/1 Rubik,sans-serif;color:#6B3200;letter-spacing:.12em}
+  @keyframes flip{0%,70%,100%{transform:rotateY(0)}85%{transform:rotateY(360deg)}}
+  .orbit{position:absolute;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF3A8,#FFC93C 45%,#E08A00);border:2px solid #A35F00;animation:float 3s ease-in-out infinite}
+  .orbit.o1{left:-26px;top:20px}.orbit.o2{right:-30px;top:60px;width:16px;height:16px;animation-delay:.6s}.orbit.o3{left:-8px;bottom:-6px;width:14px;height:14px;animation-delay:1.2s}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  h1{margin:0;font:900 34px/1.05 Rubik,sans-serif;font-style:italic;text-transform:uppercase;
+     background:linear-gradient(180deg,#FFFFFF 0%,#FFE9A3 55%,#FFC93C 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+     filter:drop-shadow(0 3px 0 #5B1AA8) drop-shadow(0 8px 18px rgba(155,48,255,.6))}
+  .sub{margin:0;font:500 16px/1.45 Rubik,sans-serif;color:#CDBDF5;max-width:340px}
+
+  .cta{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:68px;border-radius:20px;text-decoration:none;
+    background:linear-gradient(180deg,#FFE58A 0%,#FFC93C 45%,#FF9F00 100%);color:#3A1A00;
+    font:900 21px/1 Rubik,sans-serif;font-style:italic;text-transform:uppercase;
+    box-shadow:0 7px 0 #B35A00,0 12px 26px rgba(255,150,0,.5),inset 0 2px 0 rgba(255,255,255,.7);animation:btnpulse 1.4s ease-in-out infinite}
+  .cta:active{transform:translateY(5px);box-shadow:0 2px 0 #B35A00}
+  .cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);animation:shine 2.4s ease-in-out infinite}
+  @keyframes btnpulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
+  @keyframes shine{0%{left:-60%}60%,100%{left:120%}}
+
+  h2{margin:0 0 14px;font:900 18px/1.2 Rubik,sans-serif;font-style:italic;text-transform:uppercase;color:#fff;text-align:center}
+  .steps{display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1.5px solid rgba(255,255,255,.14)}
+  .step .n{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font:900 18px/1 Rubik,sans-serif;font-style:italic;color:#3A1A00;
+    background:linear-gradient(180deg,#FFE58A,#FFC93C 50%,#FF9F00);box-shadow:0 3px 0 #B35A00}
+  .step.final{border-color:#FFC93C;box-shadow:0 0 0 1px #FFC93C,0 0 24px rgba(255,201,60,.35);background:rgba(255,201,60,.1)}
+  .step .tt{display:flex;flex-direction:column;gap:3px}
+  .step .tt b{font:800 16px/1.2 Rubik,sans-serif;color:#fff}
+  .step .tt span{font:500 13px/1.35 Rubik,sans-serif;color:#CDBDF5}
+
+  .games{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .game{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px 12px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1.5px solid rgba(255,255,255,.14);text-align:center}
+  .game .ic{width:64px;height:64px;border-radius:16px;background:linear-gradient(180deg,#FFF9EA,#FFEFC7);border:3px solid #120430;display:flex;align-items:center;justify-content:center}
+  .game .ic svg{width:48px;height:48px}
+  .game b{font:900 13px/1.1 Rubik,sans-serif;font-style:italic;text-transform:uppercase;color:#fff}
+  .game span{font:500 11px/1.3 Rubik,sans-serif;color:#CDBDF5}
+
+  .trust{display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:22px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12)}
+  .trow{display:flex;align-items:center;gap:12px;font:500 14px/1.4 Rubik,sans-serif;color:#E9E0FF}
+  .trow .ok{width:26px;height:26px;border-radius:50%;background:#FFC93C;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .legal{font:400 11px/1.45 Rubik,sans-serif;color:#8F80BF;text-align:center}
+
+  .sticky{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:440px;z-index:5;padding:14px 20px calc(16px + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg,rgba(22,9,53,0),rgba(22,9,53,.92) 35%);transition:opacity .3s,transform .3s}
+  .sticky.hide{opacity:0;transform:translate(-50%,30px);pointer-events:none}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="gLemon" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF8A0"/><stop offset=".45" stop-color="#FFD60A"/><stop offset="1" stop-color="#F29100"/></radialGradient>
+    <linearGradient id="gLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8BE36A"/><stop offset="1" stop-color="#2E9E3E"/></linearGradient>
+    <radialGradient id="gRed" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FF6B6B"/><stop offset=".5" stop-color="#E8173A"/><stop offset="1" stop-color="#A3001F"/></radialGradient>
+    <radialGradient id="gBlue" cx="35%" cy="25%" r="85%"><stop offset="0" stop-color="#6E9BFF"/><stop offset=".5" stop-color="#2F5BE0"/><stop offset="1" stop-color="#16308F"/></radialGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF3A8"/><stop offset=".5" stop-color="#FFC93C"/><stop offset="1" stop-color="#E08A00"/></linearGradient>
+    <symbol id="s-lemon" viewBox="0 0 64 64">
+      <path d="M43 15c-3 1-5 3-6 6" stroke="#2E6B1E" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M41 13c5-6 14-6 17-2-4 6-12 7-17 2z" fill="url(#gLeaf)" stroke="#1E4A12" stroke-width="2.5" stroke-linejoin="round"/>
+      <ellipse cx="29" cy="37" rx="23" ry="17" transform="rotate(-22 29 37)" fill="url(#gLemon)" stroke="#6B3D00" stroke-width="3"/>
+      <ellipse cx="20" cy="31" rx="8" ry="3.6" transform="rotate(-32 20 31)" fill="#fff" opacity=".75"/>
+    </symbol>
+    <symbol id="s-kyrgyz" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="28" fill="url(#gRed)" stroke="#5A0012" stroke-width="3"/>
+      <circle cx="32" cy="32" r="19" fill="none" stroke="#FFD23F" stroke-width="6" stroke-dasharray="2.6 2.4"/>
+      <circle cx="32" cy="32" r="13" fill="#FFD23F" stroke="#C98A00" stroke-width="1.5"/>
+      <path d="M22 28h20M20.5 32h23M22 36h20M28 22v20M32 20.5v23M36 22v20" stroke="#E8173A" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="22" cy="17" rx="8" ry="3.5" transform="rotate(-30 22 17)" fill="#fff" opacity=".45"/>
+    </symbol>
+    <symbol id="s-baatyr" viewBox="0 0 64 64">
+      <path d="M32 4l24 8.5v17.5c0 15-10.5 25-24 30C18.5 55 8 45 8 30V12.5z" fill="url(#gBlue)" stroke="#0A1650" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M32 16l4.6 9.3 10.3 1.5-7.4 7.2 1.7 10.2L32 39.4l-9.2 4.8 1.7-10.2-7.4-7.2 10.3-1.5z" fill="url(#gGold)" stroke="#7A4200" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M14 15l14-5" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".5"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="sparks" id="sparks"></div>
+
+<div class="page">
+  <div class="top">
+    <div class="logo">БАЙ<span>ЛОТО</span></div>
+    <div class="tools">
+      <button class="pill on" data-lang="ru">RU</button>
+      <button class="pill" data-lang="ky">KY</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="chip" data-t="chip"></div>
+    <div class="bigcoin">
+      <span class="orbit o1"></span><span class="orbit o2"></span><span class="orbit o3"></span>
+      <div class="face"><b>300</b><small>СОМ</small></div>
+    </div>
+    <h1 data-t="title"></h1>
+    <p class="sub" data-t="sub"></p>
+    <a class="cta reg" id="heroCta" href="#"><span data-t="cta"></span></a>
+  </section>
+
+  <section>
+    <h2 data-t="howTitle"></h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><span class="tt"><b data-t="s1"></b><span data-t="s1d"></span></span></div>
+      <div class="step"><span class="n">2</span><span class="tt"><b data-t="s2"></b><span data-t="s2d"></span></span></div>
+      <div class="step final"><span class="n">3</span><span class="tt"><b data-t="s3"></b><span data-t="s3d"></span></span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-t="gamesTitle"></h2>
+    <div class="games">
+      <div class="game"><span class="ic"><svg aria-hidden="true"><use href="#s-lemon"/></svg></span><b>Crazy Lemon</b><span data-t="gLemon"></span></div>
+      <div class="game"><span class="ic"><svg aria-hidden="true"><use href="#s-kyrgyz"/></svg></span><b>Кыргыз лото</b><span data-t="gScratch"></span></div>
+      <div class="game"><span class="ic"><svg aria-hidden="true"><use href="#s-baatyr"/></svg></span><b>Баатыр лото</b><span data-t="gScratch"></span></div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="trow"><span class="ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A1A00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span data-t="t1"></span></div>
+    <div class="trow"><span class="ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A1A00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span data-t="t2"></span></div>
+    <div class="trow"><span class="ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A1A00" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span data-t="t3"></span></div>
+  </section>
+
+  <div class="legal" data-t="legal"></div>
+</div>
+
+<div class="sticky hide" id="sticky"><a class="cta reg" href="#"><span data-t="cta"></span></a></div>
+
+<script>
+(function () {
+  // ===== НАСТРОЙКИ =====
+  var REG_URL = 'https://click.bayloto.kg/kspmsCNq';   // трекинговая ссылка на регистрацию
+  // Язык: ?lang=ky
+
+  var TEXT = {
+    ru: {
+      chip: 'Бонус новичка',
+      title: '300 сом на счёт за регистрацию',
+      sub: 'Зарегистрируйся, пройди проверку через Түндүк — и играй на бонус в официальной лотерее Кыргызстана',
+      cta: 'Забрать 300 сом',
+      howTitle: 'Как получить',
+      s1: 'Зарегистрируйся', s1d: 'Пара минут с телефона',
+      s2: 'Пройди проверку через Түндүк', s2d: 'Подтверждение личности онлайн',
+      s3: '300 сом на счёте', s3d: 'Играй на бонус в любимой игре',
+      gamesTitle: 'Где сыграть на бонус',
+      gLemon: 'Мгновенная', gScratch: 'Скретч от 1 сом',
+      t1: 'Официальная лотерея по договору с ГП «Кыргызлото»',
+      t2: 'Игры сертифицированы международной лабораторией GLI',
+      t3: 'Выигрыши на Mbank, О!Деньги, Optima, Bakai без комиссии',
+      legal: '18+. Бонус начисляется после регистрации и верификации через Түндүк. Оператор ОсОО «ГЛП» по договору №19 с ГП «Кыргызлото».'
+    },
+    ky: {
+      chip: 'Жаңы оюнчунун бонусу',
+      title: 'Катталсаң эсебиңе 300 сом',
+      sub: 'Катталып, Түндүк аркылуу текшерүүдөн өт — Кыргызстандын расмий лотереясында бонус менен ойно',
+      cta: '300 сомду алуу',
+      howTitle: 'Кантип алса болот',
+      s1: 'Катталуу', s1d: 'Телефондон эки мүнөт',
+      s2: 'Түндүк аркылуу текшерүү', s2d: 'Инсандыгыңды онлайн ырастоо',
+      s3: 'Эсебиңде 300 сом', s3d: 'Сүйүктүү оюнуңда бонус менен ойно',
+      gamesTitle: 'Бонус менен кайда ойноо керек',
+      gLemon: 'Ыкчам', gScratch: 'Скретч 1 сомдон',
+      t1: '«Кыргызлото» МИ менен келишим боюнча расмий лотерея',
+      t2: 'Оюндар эл аралык GLI лабораториясында тастыкталган',
+      t3: 'Утуштар Mbank, О!Деньги, Optima, Bakai картасына комиссиясыз',
+      legal: '18+. Бонус катталып, Түндүк аркылуу текшерүүдөн өткөндөн кийин берилет. Оператор — «ГЛП» ЖЧК, «Кыргызлото» МИ менен №19 келишим боюнча.'
+    }
+  };
+
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang') === 'ky' ? 'ky' : 'ru';
+  var qs = location.search.slice(1);
+  var href = REG_URL + (qs ? (REG_URL.indexOf('?') >= 0 ? '&' : '?') + qs : '');
+
+  function track(name) { try { if (window.fbq) fbq('trackCustom', name); } catch (e) {} }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = TEXT[lang][el.getAttribute('data-t')]; });
+    document.querySelectorAll('[data-lang]').forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-lang') === lang); });
+  }
+
+  document.querySelectorAll('.reg').forEach(function (a) {
+    a.href = href;
+    a.addEventListener('click', function () { track('ClickRegistration'); });
+  });
+  document.querySelectorAll('[data-lang]').forEach(function (p) {
+    p.addEventListener('click', function () { lang = p.getAttribute('data-lang'); applyLang(); });
+  });
+
+  // липкая кнопка появляется, когда главная кнопка ушла с экрана
+  var sticky = document.getElementById('sticky'), hero = document.getElementById('heroCta');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { sticky.classList.toggle('hide', es[0].isIntersecting); }).observe(hero);
+  } else { sticky.classList.remove('hide'); }
+
+  (function () {
+    var box = document.getElementById('sparks');
+    for (var i = 0; i < 16; i++) {
+      var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      var size = 8 + Math.random() * 12;
+      s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('width', size); s.setAttribute('height', size);
+      s.style.left = Math.random() * 100 + 'vw'; s.style.top = Math.random() * 100 + 'vh';
+      s.style.animationDelay = (Math.random() * 2.4) + 's';
+      s.innerHTML = '<path d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z" fill="' + (i % 3 ? '#FFE58A' : '#FF7CBC') + '"/>';
+      box.appendChild(s);
+    }
+  })();
+
+  applyLang();
+})();
+</script>
+</body>
+</html>
